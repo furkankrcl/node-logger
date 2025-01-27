@@ -14,9 +14,6 @@ const config: Config = {
   collectCoverageFrom: ["src/**/*.ts"],
   coverageProvider: "v8",
   testMatch: ["**/*.test.ts"],
-  moduleNameMapper: {
-    "^src/(.*)$": "<rootDir>/src/$1", // src alias'ını çözümle
-  },
 };
 
 export default config;

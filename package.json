@@ -26,6 +26,11 @@
   "engines": {
     "node": ">=16.0.0"
   },
+  "files": [
+    "dist/**/*",
+    "README.md",
+    "LICENSE"
+  ],
   "devDependencies": {
     "@types/jest": "^29.5.14",
     "@types/node": "^22.10.10",

@@ -109,4 +109,33 @@ describe("Logger", () => {
       "[2025-01-27T12:00:00.000Z] [TestContext] [INFO] Second message"
     );
   });
+
+  it("should correctly determine if a message should be logged based on log levels", () => {
+    const logger = new Logger("TestContext");
+
+    const shouldLogSpy = jest.spyOn(logger as any, "shouldLog");
+
+    logger.log(LogLevel.DEBUG, "This should not be logged");
+    expect(shouldLogSpy).toHaveReturnedWith(false);
+
+    logger.log(LogLevel.INFO, "This should be logged");
+    expect(shouldLogSpy).toHaveReturnedWith(true);
+  });
+
+  it("should log an error message with LogLevel.ERROR", () => {
+    const logger = new Logger("TestContext");
+
+    logger.error("This is an error message");
+
+    expect(mockTransport.formatter.format).toHaveBeenCalledWith(
+      "This is an error message",
+      LogLevel.ERROR,
+      "TestContext",
+      "2025-01-27T12:00:00.000Z"
+    );
+
+    expect(mockTransport.send).toHaveBeenCalledWith(
+      "[2025-01-27T12:00:00.000Z] [TestContext] [ERROR] This is an error message"
+    );
+  });
 });
