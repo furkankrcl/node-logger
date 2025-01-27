@@ -17,12 +17,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/furkankrcl/logger.git"
+    "url": "https://github.com/furkankrcl/node-logger.git"
   },
   "bugs": {
-    "url": "https://github.com/furkankrcl/logger/issues"
+    "url": "https://github.com/furkankrcl/node-logger/issues"
   },
-  "homepage": "https://github.com/furkankrcl/logger#readme",
+  "homepage": "https://github.com/furkankrcl/node-logger#readme",
   "engines": {
     "node": ">=16.0.0"
   },
