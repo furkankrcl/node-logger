@@ -4,7 +4,7 @@ import * as https from "https";
 import * as http from "http";
 import { URL } from "url";
 
-export interface ApiTransportOptions {
+interface ApiTransportOptions {
   endpoint: string;
   headers?: Record<string, string>;
   method?: "POST" | "PUT";

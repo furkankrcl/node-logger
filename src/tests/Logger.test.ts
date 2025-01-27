@@ -1,0 +1,112 @@
+// Jest test file for Logger
+import { Logger } from "../core/Logger";
+import { LoggerConfig } from "../core/LoggerConfig";
+import { ITransport, LogLevel } from "../core/transports";
+import { TimeUtils } from "../utils/TimeUtils";
+
+jest.mock("../core/LoggerConfig");
+jest.mock("../utils/TimeUtils");
+
+describe("Logger", () => {
+  let mockTransport: jest.Mocked<ITransport>;
+
+  beforeEach(() => {
+    mockTransport = {
+      level: LogLevel.INFO,
+      isActive: true,
+      formatter: {
+        format: jest.fn((message, level, context, timestamp) => {
+          return `[${timestamp}] [${context}] [${String(
+            level
+          ).toUpperCase()}] ${message}`;
+        }),
+      },
+      send: jest.fn(),
+    } as unknown as jest.Mocked<ITransport>;
+
+    (
+      LoggerConfig as jest.Mocked<typeof LoggerConfig>
+    ).getInstance.mockReturnValue({
+      getTransports: jest.fn().mockReturnValue([mockTransport]),
+    } as any);
+
+    (
+      TimeUtils as jest.Mocked<typeof TimeUtils>
+    ).getCurrentTimestamp.mockReturnValue("2025-01-27T12:00:00.000Z");
+  });
+
+  it("should log a message using the correct transport", () => {
+    const logger = new Logger("TestContext");
+
+    logger.info("Test message");
+
+    expect(mockTransport.formatter.format).toHaveBeenCalledWith(
+      "Test message",
+      LogLevel.INFO,
+      "TestContext",
+      "2025-01-27T12:00:00.000Z"
+    );
+
+    expect(mockTransport.send).toHaveBeenCalledWith(
+      "[2025-01-27T12:00:00.000Z] [TestContext] [INFO] Test message"
+    );
+  });
+
+  it("should respect the log level hierarchy", () => {
+    mockTransport.level = LogLevel.WARN;
+
+    const logger = new Logger("TestContext");
+
+    logger.info("This should not be logged");
+
+    expect(mockTransport.send).not.toHaveBeenCalled();
+
+    logger.warn("This should be logged");
+
+    expect(mockTransport.send).toHaveBeenCalledWith(
+      "[2025-01-27T12:00:00.000Z] [TestContext] [WARN] This should be logged"
+    );
+  });
+
+  it("should handle category-specific transports", () => {
+    const categoryTransport: jest.Mocked<ITransport> = {
+      ...mockTransport,
+      level: LogLevel.DEBUG,
+    };
+
+    (
+      LoggerConfig as jest.Mocked<typeof LoggerConfig>
+    ).getInstance.mockReturnValue({
+      getTransports: jest.fn((category?: string) => {
+        if (category === "SpecialCategory") {
+          return [categoryTransport];
+        }
+        return [mockTransport];
+      }),
+    } as any);
+
+    const logger = new Logger("TestContext");
+
+    logger.category("SpecialCategory").debug("Category-specific message");
+
+    expect(categoryTransport.send).toHaveBeenCalledWith(
+      "[2025-01-27T12:00:00.000Z] [TestContext] [DEBUG] Category-specific message"
+    );
+  });
+
+  it("should reset the category after a log", () => {
+    const logger = new Logger("TestContext");
+
+    logger.category("SpecialCategory").info("First message");
+
+    expect(mockTransport.send).toHaveBeenCalledWith(
+      "[2025-01-27T12:00:00.000Z] [TestContext] [INFO] First message"
+    );
+
+    logger.info("Second message");
+
+    expect(mockTransport.send).toHaveBeenCalledWith(
+      "[2025-01-27T12:00:00.000Z] [TestContext] [INFO] Second message"
+    );
+  });
+});

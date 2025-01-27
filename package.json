@@ -1,16 +1,36 @@
 {
   "name": "@furkankrcl/logger",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "A flexible logger with support for multiple transports, formatting, and categories.",
+  "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "ts-node src/example.ts",
+    "build": "tsc",
+    "test": "jest"
   },
-  "keywords": [],
+  "keywords": [
+    "logger",
+    "typescript",
+    "transport"
+  ],
   "author": "furkankrcl",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/furkankrcl/logger.git"
+  },
+  "bugs": {
+    "url": "https://github.com/furkankrcl/logger/issues"
+  },
+  "homepage": "https://github.com/furkankrcl/logger#readme",
+  "engines": {
+    "node": ">=16.0.0"
+  },
   "devDependencies": {
+    "@types/jest": "^29.5.14",
     "@types/node": "^22.10.10",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.3"
   }
