@@ -2,15 +2,15 @@ import { LogLevel } from "../core/transports/Transport";
 
 export class Colors {
   private static levelColors: Record<LogLevel, string> = {
-    debug: "\x1b[34m", // Mavi
-    info: "\x1b[32m", // Yeşil
-    warn: "\x1b[33m", // Sarı
-    error: "\x1b[31m", // Kırmızı
+    debug: "\x1b[34m", // blue
+    info: "\x1b[32m", // green
+    warn: "\x1b[33m", // yellow
+    error: "\x1b[31m", // red
   };
   private static resetColor = "\x1b[0m";
 
   public static applyColor(level: LogLevel, message: string): string {
-    const color = this.levelColors[level] || this.resetColor; // Varsayılan renk yok
+    const color = this.levelColors[level] || this.resetColor;
     return `${color}${message}\x1b[0m`;
   }
 
@@ -22,7 +22,7 @@ export class Colors {
   }
 
   public static applyDynamicColor(message: string): string {
-    const logLevel = Colors.extractLogLevel(message); // Log seviyesi belirlenir
+    const logLevel = Colors.extractLogLevel(message);
     const color = this.levelColors[logLevel] || this.resetColor;
     return `${color}${message}${this.resetColor}`;
   }

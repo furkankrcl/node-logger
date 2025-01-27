@@ -1,4 +1,4 @@
-import { IFormatter } from "../formatters/Formatter";
+import { IFormatter } from "../formatters";
 
 export enum LogLevel {
   DEBUG = "debug",

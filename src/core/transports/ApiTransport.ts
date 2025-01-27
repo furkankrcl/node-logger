@@ -1,5 +1,5 @@
 import { ITransport, LogLevel } from "./Transport";
-import { IFormatter } from "../formatters/Formatter";
+import { IFormatter } from "../formatters";
 import * as https from "https";
 import * as http from "http";
 import { URL } from "url";
@@ -13,9 +13,9 @@ export interface ApiTransportOptions {
 }
 
 export class ApiTransport implements ITransport {
-  level: LogLevel;
-  formatter: IFormatter;
-  isActive: boolean;
+  public level: LogLevel;
+  public formatter: IFormatter;
+  public isActive: boolean;
   private options: ApiTransportOptions;
 
   constructor(
@@ -30,7 +30,7 @@ export class ApiTransport implements ITransport {
     this.isActive = isActive;
   }
 
-  async send(formattedMessage: string): Promise<void> {
+  public async send(formattedMessage: string): Promise<void> {
     await this.retrySend(formattedMessage, this.options.retries);
   }
 

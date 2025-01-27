@@ -1,14 +1,15 @@
 import { ITransport, LogLevel } from "./Transport";
-import { IFormatter } from "../formatters/Formatter";
+import { IFormatter } from "../formatters";
 import * as fs from "fs";
 import * as path from "path";
 
 export class FileTransport implements ITransport {
-  level: LogLevel;
-  formatter: IFormatter;
-  isActive: boolean;
   private filePath: string;
   private maxSizeInBytes: number;
+
+  public level: LogLevel;
+  public formatter: IFormatter;
+  public isActive: boolean;
 
   constructor(
     level: LogLevel,

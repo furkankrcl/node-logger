@@ -1,8 +1,8 @@
 import { IFormatter } from "./Formatter";
-import { LogLevel } from "../transports/Transport";
+import { LogLevel } from "../transports";
 
 export class JsonFormatter implements IFormatter {
-  format(
+  public format(
     message: string,
     level: LogLevel,
     context: string,

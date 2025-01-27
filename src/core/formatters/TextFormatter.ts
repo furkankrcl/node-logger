@@ -1,5 +1,5 @@
 import { IFormatter } from "./Formatter";
-import { LogLevel } from "../transports/Transport";
+import { LogLevel } from "../transports";
 import { Colors } from "../../utils/Colors";
 
 export class TextFormatter implements IFormatter {
@@ -7,7 +7,7 @@ export class TextFormatter implements IFormatter {
   constructor(useColor: boolean) {
     this.useColor = useColor;
   }
-  format(
+  public format(
     message: string,
     level: LogLevel,
     context: string,

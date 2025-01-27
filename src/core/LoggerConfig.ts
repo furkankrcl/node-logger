@@ -1,6 +1,6 @@
 import { ITransport } from "./transports";
 
-export interface LoggerConfigOptions {
+interface LoggerConfigOptions {
   transports: ITransport[];
   categoryTransports?: Record<string, ITransport[]>;
 }

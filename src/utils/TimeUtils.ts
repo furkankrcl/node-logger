@@ -1,16 +1,16 @@
 export class TimeUtils {
   /**
-   * Şu anki zamanı ISO 8601 formatında döner.
-   * Örn: 2025-01-26T12:34:56.789Z
+   * Returns the current time in ISO 8601 format.
+   * Example: 2025-01-26T12:34:56.789Z
    */
   public static getCurrentTimestamp(): string {
     return new Date().toISOString();
   }
 
   /**
-   * Tarihi okunabilir bir formata çevirir.
-   * Örn: 26/01/2025 15:30:45
-   * @param date Opsiyonel olarak tarih nesnesi (Varsayılan: Şu anki zaman)
+   * Converts the date to a readable format.
+   * Example: 26/01/2025 15:30:45
+   * @param date Optional date object (Default: Current time)
    */
   public static getReadableTimestamp(date: Date = new Date()): string {
     const day = String(date.getDate()).padStart(2, "0");

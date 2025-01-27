@@ -1,4 +1,4 @@
-import { LogLevel } from "../transports/Transport";
+import { LogLevel } from "../transports";
 
 export interface IFormatter {
   format(

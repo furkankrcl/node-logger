@@ -1,5 +1,5 @@
 import { LoggerConfig } from "./LoggerConfig";
-import { LogLevel } from "./transports/Transport";
+import { LogLevel } from "./transports";
 import { TimeUtils } from "../utils/TimeUtils";
 
 export class Logger {
@@ -15,7 +15,7 @@ export class Logger {
     return this;
   }
 
-  log(level: LogLevel, message: string): void {
+  public log(level: LogLevel, message: string): void {
     const transports = LoggerConfig.getInstance().getTransports(
       this.currentCategory
     );
@@ -35,19 +35,19 @@ export class Logger {
     this.currentCategory = undefined;
   }
 
-  info(message: string): void {
+  public info(message: string): void {
     this.log(LogLevel.INFO, message);
   }
 
-  warn(message: string): void {
+  public warn(message: string): void {
     this.log(LogLevel.WARN, message);
   }
 
-  error(message: string): void {
+  public error(message: string): void {
     this.log(LogLevel.ERROR, message);
   }
 
-  debug(message: string): void {
+  public debug(message: string): void {
     this.log(LogLevel.DEBUG, message);
   }
 

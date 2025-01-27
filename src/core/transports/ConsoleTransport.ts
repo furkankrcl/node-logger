@@ -1,10 +1,10 @@
 import { ITransport, LogLevel } from "./Transport";
-import { IFormatter } from "../formatters/Formatter";
+import { IFormatter } from "../formatters";
 
 export class ConsoleTransport implements ITransport {
-  level: LogLevel;
-  formatter: IFormatter;
-  isActive: boolean;
+  public level: LogLevel;
+  public formatter: IFormatter;
+  public isActive: boolean;
 
   constructor(level: LogLevel, formatter: IFormatter, isActive = true) {
     this.level = level;
@@ -12,7 +12,7 @@ export class ConsoleTransport implements ITransport {
     this.isActive = isActive;
   }
 
-  send(formattedMessage: string): void {
+  public send(formattedMessage: string): void {
     console.log(formattedMessage);
   }
 }
