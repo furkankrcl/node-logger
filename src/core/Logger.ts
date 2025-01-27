@@ -4,13 +4,21 @@ import { TimeUtils } from "../utils/TimeUtils";
 
 export class Logger {
   private context: string;
+  private currentCategory: string | undefined;
 
   constructor(context: string) {
     this.context = context;
   }
 
+  public category(category: string): Logger {
+    this.currentCategory = category;
+    return this;
+  }
+
   log(level: LogLevel, message: string): void {
-    const transports = LoggerConfig.getInstance().getTransports();
+    const transports = LoggerConfig.getInstance().getTransports(
+      this.currentCategory
+    );
     const timestamp = TimeUtils.getCurrentTimestamp();
 
     transports.forEach((transport) => {
@@ -24,6 +32,7 @@ export class Logger {
         transport.send(formattedMessage);
       }
     });
+    this.currentCategory = undefined;
   }
 
   info(message: string): void {

@@ -2,14 +2,19 @@ import { ITransport } from "./transports";
 
 export interface LoggerConfigOptions {
   transports: ITransport[];
+  categoryTransports?: Record<string, ITransport[]>;
 }
 
 export class LoggerConfig {
   private static instance: LoggerConfig | null = null;
   private transports: ITransport[];
+  private categoryTransports: Record<string, ITransport[]> = {};
 
   private constructor(options: LoggerConfigOptions) {
     this.transports = options.transports;
+    if (options.categoryTransports) {
+      this.categoryTransports = options.categoryTransports;
+    }
   }
 
   public static init(options: LoggerConfigOptions): void {
@@ -27,7 +32,10 @@ export class LoggerConfig {
     return LoggerConfig.instance;
   }
 
-  public getTransports(): ITransport[] {
+  public getTransports(category?: string): ITransport[] {
+    if (category && this.categoryTransports[category]) {
+      return this.categoryTransports[category];
+    }
     return this.transports;
   }
 }
