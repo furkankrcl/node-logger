@@ -14,6 +14,8 @@ const config: Config = {
   collectCoverageFrom: ["src/**/*.ts"],
   coverageProvider: "v8",
   testMatch: ["**/*.test.ts"],
+  testPathIgnorePatterns: ["src/examples"],
+  coveragePathIgnorePatterns: ["src/examples"],
 };
 
 export default config;

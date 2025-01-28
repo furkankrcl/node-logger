@@ -4,7 +4,7 @@
   "description": "A flexible logger with support for multiple transports, formatting, and categories.",
   "main": "dist/index.js",
   "scripts": {
-    "start": "ts-node src/example.ts",
+    "start": "ts-node src/examples/demo_01.ts",
     "build": "tsc",
     "test": "jest"
   },

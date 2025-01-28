@@ -1,12 +1,12 @@
-import { LoggerConfig } from "./core/LoggerConfig";
-import { Logger } from "./core/Logger";
+import { LoggerConfig } from "../core/LoggerConfig";
+import { Logger } from "../core/Logger";
 import {
   ApiTransport,
   ConsoleTransport,
   FileTransport,
   LogLevel,
-} from "./core/transports";
-import { JsonFormatter, TextFormatter } from "./core/formatters";
+} from "../core/transports";
+import { JsonFormatter, TextFormatter } from "../core/formatters";
 
 LoggerConfig.init({
   transports: [
