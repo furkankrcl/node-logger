@@ -11,6 +11,13 @@ export class FileTransport implements ITransport {
   public formatter: IFormatter;
   public isActive: boolean;
 
+  /**
+   * @param level - The log level for this transport.
+   * @param formatter - The formatter used to format log messages.
+   * @param filePath - The path to the log file.
+   * @param maxSizeInMB - The maximum size of the log file in megabytes before it is rotated. Defaults to 5 MB.
+   * @param isActive - Indicates whether the transport is active. Defaults to true.
+   */
   constructor(
     level: LogLevel,
     formatter: IFormatter,

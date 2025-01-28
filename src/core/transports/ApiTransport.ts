@@ -4,20 +4,44 @@ import * as https from "https";
 import * as http from "http";
 import { URL } from "url";
 
+/**
+ * Options for configuring the API transport.
+ */
 interface ApiTransportOptions {
+  /**
+   * The URL endpoint to which the logs will be sent.
+   */
   endpoint: string;
+  /**
+   * Optional headers to include in the API request.
+   */
   headers?: Record<string, string>;
+  /**
+   * The HTTP method to use for the API request. Defaults to "POST".
+   */
   method?: "POST" | "PUT";
+  /**
+   * The number of times to retry the request in case of failure. Defaults to 3.
+   */
   retries?: number;
+  /**
+   * The delay in milliseconds between retry attempts. Defaults to 1000.
+   */
   retryDelay?: number;
 }
 
 export class ApiTransport implements ITransport {
+  private options: ApiTransportOptions;
   public level: LogLevel;
   public formatter: IFormatter;
   public isActive: boolean;
-  private options: ApiTransportOptions;
 
+  /**
+   * @param level - The log level to be used by this transport.
+   * @param formatter - The formatter to format log messages.
+   * @param options - The options for the API transport, including endpoint, method, headers, retries, and retryDelay.
+   * @param isActive - A boolean indicating whether the transport is active. Defaults to true.
+   */
   constructor(
     level: LogLevel,
     formatter: IFormatter,

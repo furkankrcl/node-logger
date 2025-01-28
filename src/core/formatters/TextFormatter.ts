@@ -4,6 +4,9 @@ import { Colors } from "../../utils/Colors";
 
 export class TextFormatter implements IFormatter {
   private useColor: boolean;
+  /**
+   * @param useColor - A boolean indicating whether to apply color to the formatted log messages.
+   */
   constructor(useColor: boolean) {
     this.useColor = useColor;
   }

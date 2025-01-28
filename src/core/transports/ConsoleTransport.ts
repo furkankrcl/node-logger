@@ -6,6 +6,11 @@ export class ConsoleTransport implements ITransport {
   public formatter: IFormatter;
   public isActive: boolean;
 
+  /**
+   * @param level - The log level to be used by this transport.
+   * @param formatter - The formatter to format log messages.
+   * @param isActive - A boolean indicating whether the transport is active. Defaults to true.
+   */
   constructor(level: LogLevel, formatter: IFormatter, isActive = true) {
     this.level = level;
     this.formatter = formatter;
