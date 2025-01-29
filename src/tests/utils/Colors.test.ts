@@ -1,6 +1,6 @@
 // Jest test file for Colors
+import { LogLevel } from "../../core/LogLevel";
 import { Colors } from "../../utils/Colors";
-import { LogLevel } from "../../core/transports";
 
 describe("Colors", () => {
   describe("applyColor", () => {

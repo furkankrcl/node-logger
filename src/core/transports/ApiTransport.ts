@@ -1,8 +1,9 @@
-import { ITransport, LogLevel } from "./Transport";
-import { IFormatter } from "../formatters";
+import { ITransport } from "./ITransport";
 import * as https from "https";
 import * as http from "http";
 import { URL } from "url";
+import { LogLevel } from "../LogLevel";
+import { IFormatter } from "../formatters/IFormatter";
 
 /**
  * Options for configuring the API transport.

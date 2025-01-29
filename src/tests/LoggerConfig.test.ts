@@ -1,5 +1,5 @@
 import { LoggerConfig } from "../core/LoggerConfig";
-import { ITransport } from "../core/transports";
+import { ITransport } from "../core/transports/ITransport";
 
 describe("LoggerConfig", () => {
   let mockTransport: jest.Mocked<ITransport>;

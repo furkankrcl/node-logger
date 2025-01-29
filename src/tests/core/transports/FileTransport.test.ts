@@ -1,6 +1,7 @@
 import * as fs from "fs";
-import { FileTransport, LogLevel } from "../../../core/transports";
-import { IFormatter } from "../../../core/formatters";
+import { FileTransport } from "../../../core/transports/FileTransport";
+import { IFormatter } from "../../../core/formatters/IFormatter";
+import { LogLevel } from "../../../core/LogLevel";
 
 jest.mock("fs");
 

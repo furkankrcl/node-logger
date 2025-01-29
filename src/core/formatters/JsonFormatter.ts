@@ -1,5 +1,5 @@
-import { IFormatter } from "./Formatter";
-import { LogLevel } from "../transports";
+import { LogLevel } from "../LogLevel";
+import { IFormatter } from "./IFormatter";
 
 export class JsonFormatter implements IFormatter {
   public format(

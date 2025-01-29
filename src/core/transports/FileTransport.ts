@@ -1,7 +1,8 @@
-import { ITransport, LogLevel } from "./Transport";
-import { IFormatter } from "../formatters";
+import { ITransport } from "./ITransport";
 import * as fs from "fs";
 import * as path from "path";
+import { LogLevel } from "../LogLevel";
+import { IFormatter } from "../formatters/IFormatter";
 
 export class FileTransport implements ITransport {
   private filePath: string;

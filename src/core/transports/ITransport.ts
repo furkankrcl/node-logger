@@ -1,14 +1,5 @@
-import { IFormatter } from "../formatters";
-
-/**
- * Represents the log level for a transport.
- */
-export enum LogLevel {
-  DEBUG = "debug",
-  INFO = "info",
-  WARN = "warn",
-  ERROR = "error",
-}
+import { IFormatter } from "../formatters/IFormatter";
+import { LogLevel } from "../LogLevel";
 
 /**
  * Defines the structure of a transport for logging.

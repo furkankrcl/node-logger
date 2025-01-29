@@ -1,7 +1,7 @@
 // Jest test file for TextFormatter
 
-import { TextFormatter } from "../../../core/formatters";
-import { LogLevel } from "../../../core/transports";
+import { TextFormatter } from "../../../core/formatters/TextFormatter";
+import { LogLevel } from "../../../core/LogLevel";
 import { Colors } from "../../../utils/Colors";
 
 jest.mock("../../../utils/Colors", () => ({

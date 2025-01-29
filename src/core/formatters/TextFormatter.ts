@@ -1,6 +1,6 @@
-import { IFormatter } from "./Formatter";
-import { LogLevel } from "../transports";
+import { IFormatter } from "./IFormatter";
 import { Colors } from "../../utils/Colors";
+import { LogLevel } from "../LogLevel";
 
 export class TextFormatter implements IFormatter {
   private useColor: boolean;

@@ -1,6 +1,6 @@
 import { LoggerConfig } from "./LoggerConfig";
-import { LogLevel } from "./transports";
 import { TimeUtils } from "../utils/TimeUtils";
+import { LogLevel } from "./LogLevel";
 
 export class Logger {
   private context: string;

@@ -1,4 +1,4 @@
-import { LogLevel } from "../core/transports/Transport";
+import { LogLevel } from "src/core/LogLevel";
 
 export class Colors {
   private static levelColors: Record<LogLevel, string> = {

@@ -1,7 +1,8 @@
 // Jest test file for Logger
 import { Logger } from "../core/Logger";
 import { LoggerConfig } from "../core/LoggerConfig";
-import { ITransport, LogLevel } from "../core/transports";
+import { LogLevel } from "../core/LogLevel";
+import { ITransport } from "../core/transports/ITransport";
 import { TimeUtils } from "../utils/TimeUtils";
 
 jest.mock("../core/LoggerConfig");

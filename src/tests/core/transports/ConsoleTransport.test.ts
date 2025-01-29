@@ -1,5 +1,6 @@
-import { IFormatter } from "../../../core/formatters";
-import { ConsoleTransport, LogLevel } from "../../../core/transports";
+import { IFormatter } from "../../../core/formatters/IFormatter";
+import { LogLevel } from "../../../core/LogLevel";
+import { ConsoleTransport } from "../../../core/transports/ConsoleTransport";
 
 jest.spyOn(console, "log").mockImplementation(() => {});
 

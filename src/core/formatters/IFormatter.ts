@@ -1,4 +1,4 @@
-import { LogLevel } from "../transports";
+import { LogLevel } from "../LogLevel";
 
 /**
  * Defines the structure of a formatter used by a transport.

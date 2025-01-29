@@ -1,5 +1,6 @@
-import { ITransport, LogLevel } from "./Transport";
-import { IFormatter } from "../formatters";
+import { IFormatter } from "../formatters/IFormatter";
+import { LogLevel } from "../LogLevel";
+import { ITransport } from "./ITransport";
 
 export class ConsoleTransport implements ITransport {
   public level: LogLevel;

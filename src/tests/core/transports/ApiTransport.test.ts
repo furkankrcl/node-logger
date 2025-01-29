@@ -1,7 +1,8 @@
 import * as http from "http";
 import * as https from "https";
-import { ApiTransport, LogLevel } from "../../../core/transports";
-import { IFormatter } from "../../../core/formatters";
+import { ApiTransport } from "../../../core/transports/ApiTransport";
+import { IFormatter } from "../../../core/formatters/IFormatter";
+import { LogLevel } from "../../../core/LogLevel";
 
 jest.mock("http");
 jest.mock("https");

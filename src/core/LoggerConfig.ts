@@ -1,4 +1,4 @@
-import { ITransport } from "./transports";
+import { ITransport } from "./transports/ITransport";
 
 interface LoggerConfigOptions {
   transports: ITransport[];

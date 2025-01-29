@@ -1,5 +1,5 @@
-import { JsonFormatter } from "../../../core/formatters";
-import { LogLevel } from "../../../core/transports";
+import { JsonFormatter } from "../../../core/formatters/JsonFormatter";
+import { LogLevel } from "../../../core/LogLevel";
 
 describe("JsonFormatter", () => {
   let formatter: JsonFormatter;
