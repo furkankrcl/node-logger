@@ -22,10 +22,14 @@ describe("FileTransport", () => {
     };
 
     transport = new FileTransport(
-      LogLevel.INFO,
-      mockFormatter,
-      mockFilePath,
-      1
+      {
+        level: LogLevel.INFO,
+        formatter: mockFormatter,
+      },
+      {
+        filePath: mockFilePath,
+        maxSizeInMB: 1,
+      }
     );
   });
 
@@ -93,7 +97,10 @@ describe("FileTransport", () => {
   });
 
   it("should not write to the file if isActive is false", () => {
-    transport.isActive = false;
+    Object.defineProperty(transport, "isActive", {
+      value: false,
+      writable: false,
+    });
     const message = "This message should not be logged.";
     const formattedMessage = mockFormatter.format(
       message,

@@ -9,26 +9,35 @@ import { JsonFormatter } from "../core/formatters/JsonFormatter";
 
 LoggerConfig.init({
   transports: [
-    new ConsoleTransport(LogLevel.DEBUG, new TextFormatter(true)),
+    new ConsoleTransport({
+      level: LogLevel.DEBUG,
+      formatter: new TextFormatter(true),
+    }),
     new FileTransport(
-      LogLevel.INFO,
-      new TextFormatter(false),
-      "./logs/app.log",
-      2
+      {
+        level: LogLevel.INFO,
+        formatter: new TextFormatter(false),
+      },
+      {
+        filePath: "./logs/app.log",
+        maxSizeInMB: 2,
+      }
     ),
   ],
   categoryTransports: {
     db: [
-      new ApiTransport(LogLevel.ERROR, new JsonFormatter(), {
-        endpoint: "https://4f199b8aebb4489cb107a0c5fdcf676e.api.mockbin.io/",
-        method: "POST",
-        headers: {
-          "User-Agent": "furkankrcl",
-          Authorization: "Bearer my_token",
+      new ApiTransport(
+        {
+          level: LogLevel.ERROR,
+          formatter: new JsonFormatter(),
         },
-        retries: 2,
-        retryDelay: 1000,
-      }),
+        {
+          endpoint: "https://4f199b8aebb4489cb107a0c5fdcf676e.api.mockbin.io/",
+          method: "POST",
+          retries: 2,
+          retryDelay: 1000,
+        }
+      ),
     ],
   },
 });

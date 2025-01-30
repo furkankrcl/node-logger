@@ -18,7 +18,10 @@ describe("ConsoleTransport", () => {
         }),
     };
 
-    transport = new ConsoleTransport(LogLevel.INFO, mockFormatter);
+    transport = new ConsoleTransport({
+      level: LogLevel.INFO,
+      formatter: mockFormatter,
+    });
   });
 
   it("should log the formatted message to console", () => {
@@ -59,7 +62,10 @@ describe("ConsoleTransport", () => {
   });
 
   it("should not log anything if isActive is false", () => {
-    transport.isActive = false;
+    Object.defineProperty(transport, "isActive", {
+      value: false,
+      writable: false,
+    });
     const message = "This message should not be logged.";
     const formattedMessage = mockFormatter.format(
       message,

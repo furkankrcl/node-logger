@@ -21,12 +21,15 @@ describe("ApiTransport", () => {
         }),
     };
 
-    transport = new ApiTransport(LogLevel.INFO, mockFormatter, {
-      endpoint: "https://example.com/logs",
-      headers: { Authorization: "Bearer token" },
-      retries: 2,
-      retryDelay: 100,
-    });
+    transport = new ApiTransport(
+      { level: LogLevel.INFO, formatter: mockFormatter },
+      {
+        endpoint: "https://example.com/logs",
+        headers: { Authorization: "Bearer token" },
+        retries: 2,
+        retryDelay: 100,
+      }
+    );
   });
 
   it("should send a formatted message", async () => {

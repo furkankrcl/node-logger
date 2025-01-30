@@ -1,9 +1,7 @@
-import { ITransport } from "./ITransport";
+import { ITransport, TransportOptions } from "./ITransport";
 import * as https from "https";
 import * as http from "http";
 import { URL } from "url";
-import { LogLevel } from "../LogLevel";
-import { IFormatter } from "../formatters/IFormatter";
 
 /**
  * Options for configuring the API transport.
@@ -31,35 +29,28 @@ interface ApiTransportOptions {
   retryDelay?: number;
 }
 
-export class ApiTransport implements ITransport {
+export class ApiTransport extends ITransport {
   private options: ApiTransportOptions;
-  public level: LogLevel;
-  public formatter: IFormatter;
-  public isActive: boolean;
 
-  /**
-   * @param level - The log level to be used by this transport.
-   * @param formatter - The formatter to format log messages.
-   * @param options - The options for the API transport, including endpoint, method, headers, retries, and retryDelay.
-   * @param isActive - A boolean indicating whether the transport is active. Defaults to true.
-   */
   constructor(
-    level: LogLevel,
-    formatter: IFormatter,
-    options: ApiTransportOptions,
-    isActive = true
+    options: TransportOptions,
+    {
+      endpoint,
+      headers,
+      method = "POST",
+      retries = 3,
+      retryDelay = 1000,
+    }: ApiTransportOptions
   ) {
-    this.level = level;
-    this.formatter = formatter;
-    this.options = { method: "POST", retries: 3, retryDelay: 1000, ...options };
-    this.isActive = isActive;
+    super(options);
+    this.options = { endpoint, headers, method, retries, retryDelay };
   }
 
   public async send(formattedMessage: string): Promise<void> {
-    await this.retrySend(formattedMessage, this.options.retries);
+    await this.retrySend(formattedMessage, this.options.retries!);
   }
 
-  private async retrySend(message: string, retries = 3): Promise<void> {
+  private async retrySend(message: string, retries: number): Promise<void> {
     for (let attempt = 1; attempt <= retries; attempt++) {
       try {
         await this.performRequest(message);

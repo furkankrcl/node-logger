@@ -2,23 +2,23 @@
 
 `@furkankrcl/logger` is a library designed to meet the logging needs in Node.js projects. It can be easily integrated and is also customizable. With this library, you can easily perform standard logging operations and develop customized solutions according to your needs.
 
-## 📖 Other Languages
+## 1. 📖 Other Languages
 
 - [Türkçe (README.tr.md)](README.tr.md)
 
 ## 🚀 Features
 
-- **Flexible Transport Mechanisms**: Provides predefined transport mechanisms such as Console, file, or API. You can also create your own transport classes by deriving from the [`ITransport`](#2-itransport-interface) interface.
+- **Flexible Transport Mechanisms**: Provides predefined transport mechanisms such as console, file, or API. You can also create your own transport classes by deriving from the [`ITransport`](#52-itransport-interface) interface.
 - **Category-Based Logging**: Manage logs in your application more systematically by defining different log categories.
-- **Customizable Formatting**: Define your own log formats by deriving from the [`IFormatter`](#1-iformatter-interface) interface or use the built-in [`JsonFormatter`](#12-jsonformatter-class) and [`TextFormatter`](#11-textformatter-class) classes.
-- **TypeScript Support**: Provides ease of development with strong type support.
+- **Customizable Formatting**: Define your own log formats by deriving from the [`IFormatter`](#51-iformatter-interface) interface or use the built-in [`JsonFormatter`](#512-jsonformatter-class) and [`TextFormatter`](#511-textformatter-class) classes.
+- **TypeScript Support**: Facilitates the development process with strong type support.
 
 The library offers a structure open to custom developments in addition to standard solutions. For example:
 
-- To send logs to a custom environment, you can create your own [`ITransport`](#2-itransport-interface) class.
-- If a different log format is needed, you can define a new formatter using the [`IFormatter`](#1-iformatter-interface) interface.
+- You can create your own [`ITransport`](#52-itransport-interface) class to send logs to a custom destination.
+- If a different log format is required, you can define a new formatter using the [`IFormatter`](#51-iformatter-interface) interface.
 
-## 🛠️ Installation
+## 3. 🛠️ Installation
 
 Install the package using npm or yarn:
 
@@ -28,9 +28,9 @@ npm install @furkankrcl/logger
 yarn add @furkankrcl/logger
 ```
 
-## 📚 Usage and Examples
+## 4. 📚 Usage and Examples
 
-### 1. Basic Usage
+### 4.1. Basic Usage
 
 In this example, logs at DEBUG level and above are written to the console, while logs at INFO level and above are written to a file named app.log.
 
@@ -47,11 +47,18 @@ import {
 // Initialize LoggerConfig
 LoggerConfig.init({
   transports: [
-    new ConsoleTransport(LogLevel.DEBUG, new TextFormatter(true)),
+    new ConsoleTransport({
+      level: LogLevel.DEBUG,
+      formatter: new TextFormatter(true),
+    }),
     new FileTransport(
-      LogLevel.INFO,
-      new TextFormatter(false),
-      "./logs/app.log"
+      {
+        level: LogLevel.INFO,
+        formatter: new TextFormatter(false),
+      },
+      {
+        filePath: "./logs/app.log",
+      }
     ),
   ],
 });
@@ -66,7 +73,7 @@ logger.warn("This is a warning message");
 logger.error("This is an error message");
 ```
 
-### 2. Category-Based Logging
+### 4.2. Category-Based Logging
 
 ```typescript
 import {
@@ -80,12 +87,18 @@ import {
 } from "@furkankrcl/logger";
 
 LoggerConfig.init({
-  transports: [new ConsoleTransport(LogLevel.DEBUG, new TextFormatter(true))],
+  transports: [
+    new ConsoleTransport({
+      level: LogLevel.DEBUG,
+      formatter: new TextFormatter(true),
+    }),
+  ],
   categoryTransports: {
     db: [
-      new ApiTransport(LogLevel.ERROR, new JsonFormatter(), {
-        endpoint: "https://example.com/logs",
-      }),
+      new ApiTransport(
+        { level: LogLevel.ERROR, formatter: new JsonFormatter() },
+        { endpoint: "https://example.com/logs" }
+      ),
     ],
   },
 });
@@ -96,23 +109,22 @@ logger.info("This is an info message");
 logger.category("db").error("Database connection failed.");
 ```
 
-### 3. Custom Logging and Formatting
+### 4.3. Custom Logging and Formatting
 
 1. Creating the `CustomTransport` class:
 
 ```typescript
 // path_to_file/CustomTransport.ts
-import { IFormatter, ITransport, LogLevel } from "@furkankrcl/logger";
+import {
+  IFormatter,
+  ITransport,
+  LogLevel,
+  TransportOptions,
+} from "@furkankrcl/logger";
 
-export class CustomTransport implements ITransport {
-  level: LogLevel;
-  formatter: IFormatter;
-  isActive: boolean;
-
-  constructor(level: LogLevel, formatter: IFormatter, isActive = true) {
-    this.level = level;
-    this.formatter = formatter;
-    this.isActive = isActive;
+export class CustomTransport extends ITransport {
+  constructor(options: TransportOptions) {
+    super(options);
   }
 
   send(formattedMessage: string): void {
@@ -142,13 +154,18 @@ import { CustomTransport } from "path_to_file/CustomTransport";
 import { CustomFormatter } from "path_to_file/CustomFormatter";
 
 LoggerConfig.init({
-  transports: [new CustomTransport(LogLevel.DEBUG, new CustomFormatter())],
+  transports: [
+    new CustomTransport({
+      level: LogLevel.DEBUG,
+      formatter: new CustomFormatter(),
+    }),
+  ],
 });
 ```
 
-## 🧩 Objects and Properties
+## 5. 🧩 Objects and Properties
 
-### 1. IFormatter Interface
+### 5.1. IFormatter Interface
 
 `IFormatter` is an interface used to convert log messages into a specific format. Classes derived from this interface can customize log formatting operations.
 
@@ -159,44 +176,49 @@ LoggerConfig.init({
 |          |                        | `context: string`: Log context                                  |             |
 |          |                        | `timestamp: string`: Log timestamp                              |             |
 
-#### 1.1. TextFormatter Class
+#### 5.1.1. TextFormatter Class
 
 `TextFormatter` is a class that converts log messages into a text-based format. This class is generally suitable for terminal or file logging.
 
-**Constructor**
+##### Constructor
 
 | Parameter   | Description                                                                              |
 | ----------- | ---------------------------------------------------------------------------------------- |
 | `useColors` | If `true`, coloring is applied based on log levels, otherwise plain text format is used. |
 
-> For properties and methods, see the [IFormatter](#1-iformatter-interface) interface.
+> For properties and methods, see the [IFormatter](#51-iformatter-interface) interface.
 
-#### 1.2. JsonFormatter Class
+#### 5.1.2. JsonFormatter Class
 
 `JsonFormatter` is a class that converts log messages into JSON format. This class is especially used for writing logs in JSON format to APIs or files.
 
-> For properties and methods, see the [IFormatter](#1-iformatter-interface) interface.
+> For properties and methods, see the [IFormatter](#51-iformatter-interface) interface.
 
-### 2. ITransport Interface
+### 5.2. ITransport Interface
 
-`ITransport` is an interface that defines transport mechanisms used for transmitting log messages. Classes derived from this interface can direct log messages to different targets.
+`ITransport` is an abstract class that defines the transport mechanisms used for transmitting log messages. Classes derived from this class can direct log messages to different destinations.
 
-**Properties and Methods**
+###### Constructor
 
-| Property/Method | Description                                                              | Parameters                                          | Return Type  |
-| --------------- | ------------------------------------------------------------------------ | --------------------------------------------------- | ------------ |
-| `level`         | Determines the log level. Messages below this level are not transmitted. | N/A                                                 | `LogLevel`   |
-| `isActive`      | Indicates whether the transport is active.                               | N/A                                                 | `boolean`    |
-| `formatter`     | Formatter used to format messages.                                       | N/A                                                 | `IFormatter` |
-| `send`          | Sends the formatted log message.                                         | - `formattedMessage: string`: Formatted log message | `void`       |
+| Parameter | Description                                    |
+| --------- | ---------------------------------------------- |
+| options   | Parameter containing transport configurations. |
 
-#### 2.1. ConsoleTransport Class
+- **options**
+
+| Property/Method | Description                                                           | Default | Type         |
+| --------------- | --------------------------------------------------------------------- | ------- | ------------ |
+| `level`         | Determines the log level. Log messages below this level are not sent. | N/A     | `LogLevel`   |
+| `isActive`      | Indicates whether the transport is active.                            | `true`  | `boolean`    |
+| `formatter`     | Formatter used to format messages.                                    | N/A     | `IFormatter` |
+
+#### 5.2.1. ConsoleTransport Class
 
 `ConsoleTransport` is a transport class used to write log messages to the terminal. It can apply coloring based on log levels.
 
-> For constructor parameters and properties, see the [ITransport](#2-itransport-interface) interface.
+> For constructor parameters and properties, see the [ITransport](#52-itransport-interface) interface.
 
-#### 2.2. FileTransport Class
+#### 5.2.2. FileTransport Class
 
 `FileTransport` is a transport class used to write log messages to a file. It supports file rotation when a certain file size is exceeded.
 
@@ -210,42 +232,44 @@ LoggerConfig.init({
 > - `application.log` → `application.log.2025-01-28T12-00-00Z`
 >   New log messages continue to be written to the newly created `application.log` file.
 
-**Constructor**
+##### Constructor
 
 The constructor of the `FileTransport` class takes the following parameters:
 
-| Parameter     | Description                                                                                                           |
-| ------------- | --------------------------------------------------------------------------------------------------------------------- |
-| `level`       | Determines the log level. (For more information, see the [ITransport](#2-itransport-interface) description.)          |
-| `formatter`   | Formatter used to format messages. (For more information, see the [ITransport](#2-itransport-interface) description.) |
-| `filePath`    | Path of the file where logs will be written.                                                                          |
-| `maxSizeInMB` | File size limit (in megabytes). When this limit is exceeded, the file is rotated. (default: 5)                        |
-| `isActive`    | Indicates whether the transport is active. (default: `true`)                                                          |
+| Parameter              | Description                                                                                 |
+| ---------------------- | ------------------------------------------------------------------------------------------- |
+| `options`              | (For more information, see the [ITransport](#52-itransport-interface) options description.) |
+| `fileTransportOptions` | Parameter containing file storage configurations.                                           |
+
+- **`fileTransportOptions`**
+
+  | Parameter     | Description                                                                      | Default |
+  | ------------- | -------------------------------------------------------------------------------- | ------- |
+  | `filePath`    | Path of the file where logs will be written.                                     | N/A     |
+  | `maxSizeInMB` | File size limit (in megabytes). The file is rotated when this limit is exceeded. | `5`     |
 
 #### 2.3. ApiTransport Class
 
 `ApiTransport` is a transport class used to send log messages to an API. It includes a retry mechanism and transmits log messages as API requests.
 
-**Constructor**
+##### Constructor
 
 The constructor of the `ApiTransport` class takes the following parameters:
 
-| Parameter   | Description                                                                                  |
-| ----------- | -------------------------------------------------------------------------------------------- |
-| `level`     | Determines the log level. (For more information, see the `ITransport` description.)          |
-| `formatter` | Formatter used to format messages. (For more information, see the `ITransport` description.) |
-| `isActive`  | Indicates whether the transport is active. (default: `true`)                                 |
-| `options`   | An object containing API request settings.                                                   |
+| Parameter             | Description                                                                                 |
+| --------------------- | ------------------------------------------------------------------------------------------- |
+| `options`             | (For more information, see the [ITransport](#52-itransport-interface) options description.) |
+| `apiTransportOptions` | Parameter containing API request configurations.                                            |
 
-- **`options`:**
+- **`apiTransportOptions`:**
 
-  | Property     | Description                                                               |
-  | ------------ | ------------------------------------------------------------------------- |
-  | `endpoint`   | API address where log messages will be sent.                              |
-  | `headers`    | HTTP headers that need to be added to the request.                        |
-  | `method`     | Type of the outgoing request. (default: `POST`)                           |
-  | `retries`    | Number of times to retry failed requests. (default: `3`)                  |
-  | `retryDelay` | Number of milliseconds to wait between failed requests. (default: `1000`) |
+  | Property     | Description                                                           | Default |
+  | ------------ | --------------------------------------------------------------------- | ------- |
+  | `endpoint`   | The API endpoint where log messages will be sent.                     | N/A     |
+  | `headers`    | HTTP headers that need to be included in the request.                 | N/A     |
+  | `method`     | The type of the outgoing request.                                     | `POST`  |
+  | `retries`    | The number of retry attempts for failed requests.                     | `3`     |
+  | `retryDelay` | The delay in milliseconds between retry attempts for failed requests. | `1000`  |
 
 ## ⚠️ Warnings
 

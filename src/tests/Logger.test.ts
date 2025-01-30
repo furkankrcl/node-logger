@@ -54,7 +54,10 @@ describe("Logger", () => {
   });
 
   it("should respect the log level hierarchy", () => {
-    mockTransport.level = LogLevel.WARN;
+    Object.defineProperty(mockTransport, "level", {
+      value: LogLevel.WARN,
+      writable: false,
+    });
 
     const logger = new Logger("TestContext");
 
