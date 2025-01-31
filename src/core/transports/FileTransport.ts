@@ -38,7 +38,7 @@ export class FileTransport extends ITransport {
     }
   }
 
-  // Dosya boyutunu kontrol eder ve gerekirse döndürür
+  // Checks the file size and rotates if necessary
   private rotateIfNeeded(): void {
     const stats = fs.statSync(this.filePath);
     if (stats.size >= this.maxSizeInBytes) {

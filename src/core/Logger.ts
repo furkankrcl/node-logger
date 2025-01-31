@@ -15,7 +15,7 @@ export class Logger {
     return this;
   }
 
-  public log(level: LogLevel, message: string): void {
+  private log(level: LogLevel, message: string): void {
     const transports = LoggerConfig.getInstance().getTransports(
       this.currentCategory
     );
@@ -35,6 +35,10 @@ export class Logger {
     this.currentCategory = undefined;
   }
 
+  public debug(message: string): void {
+    this.log(LogLevel.DEBUG, message);
+  }
+
   public info(message: string): void {
     this.log(LogLevel.INFO, message);
   }
@@ -45,10 +49,6 @@ export class Logger {
 
   public error(message: string): void {
     this.log(LogLevel.ERROR, message);
-  }
-
-  public debug(message: string): void {
-    this.log(LogLevel.DEBUG, message);
   }
 
   private shouldLog(level: LogLevel, transportLevel: LogLevel): boolean {

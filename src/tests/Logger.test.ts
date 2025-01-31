@@ -119,10 +119,10 @@ describe("Logger", () => {
 
     const shouldLogSpy = jest.spyOn(logger as any, "shouldLog");
 
-    logger.log(LogLevel.DEBUG, "This should not be logged");
+    logger["log"](LogLevel.DEBUG, "This should not be logged");
     expect(shouldLogSpy).toHaveReturnedWith(false);
 
-    logger.log(LogLevel.INFO, "This should be logged");
+    logger["log"](LogLevel.INFO, "This should be logged");
     expect(shouldLogSpy).toHaveReturnedWith(true);
   });
 
