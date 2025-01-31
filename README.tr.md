@@ -206,11 +206,11 @@ LoggerConfig.init({
 
 - **options**
 
-| Özellik/Metod | Açıklama                                                              | Varsayılan | Tip          |
-| ------------- | --------------------------------------------------------------------- | ---------- | ------------ |
-| `level`       | Log seviyesini belirler. Bu seviye altındaki log mesajları iletilmez. | N/A        | `LogLevel`   |
-| `isActive`    | Taşımanın aktif olup olmadığını belirtir.                             | `true`     | `boolean`    |
-| `formatter`   | Mesajları formatlamak için kullanılan formatlayıcı.                   | N/A        | `IFormatter` |
+  | Özellik/Metod | Açıklama                                                              | Varsayılan | Tip          |
+  | ------------- | --------------------------------------------------------------------- | ---------- | ------------ |
+  | `level`       | Log seviyesini belirler. Bu seviye altındaki log mesajları iletilmez. | N/A        | `LogLevel`   |
+  | `isActive`    | Taşımanın aktif olup olmadığını belirtir.                             | `true`     | `boolean`    |
+  | `formatter`   | Mesajları formatlamak için kullanılan formatlayıcı.                   | N/A        | `IFormatter` |
 
 #### 5.2.1. ConsoleTransport Class
 

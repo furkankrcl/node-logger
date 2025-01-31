@@ -206,11 +206,11 @@ LoggerConfig.init({
 
 - **options**
 
-| Property/Method | Description                                                           | Default | Type         |
-| --------------- | --------------------------------------------------------------------- | ------- | ------------ |
-| `level`         | Determines the log level. Log messages below this level are not sent. | N/A     | `LogLevel`   |
-| `isActive`      | Indicates whether the transport is active.                            | `true`  | `boolean`    |
-| `formatter`     | Formatter used to format messages.                                    | N/A     | `IFormatter` |
+  | Property/Method | Description                                                           | Default | Type         |
+  | --------------- | --------------------------------------------------------------------- | ------- | ------------ |
+  | `level`         | Determines the log level. Log messages below this level are not sent. | N/A     | `LogLevel`   |
+  | `isActive`      | Indicates whether the transport is active.                            | `true`  | `boolean`    |
+  | `formatter`     | Formatter used to format messages.                                    | N/A     | `IFormatter` |
 
 #### 5.2.1. ConsoleTransport Class
 
