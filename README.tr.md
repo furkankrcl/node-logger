@@ -115,12 +115,7 @@ logger.category("db").error("Veritabanı bağlantısı başarısız.");
 
 ```typescript
 // path_to_file/CustomTransport.ts
-import {
-  IFormatter,
-  ITransport,
-  LogLevel,
-  TransportOptions,
-} from "@furkankrcl/logger";
+import { ITransport, TransportOptions } from "@furkankrcl/logger";
 
 export class CustomTransport extends ITransport {
   constructor(options: TransportOptions) {
