@@ -243,7 +243,7 @@ The constructor of the `FileTransport` class takes the following parameters:
   | `filePath`    | Path of the file where logs will be written.                                     | N/A     |
   | `maxSizeInMB` | File size limit (in megabytes). The file is rotated when this limit is exceeded. | `5`     |
 
-#### 2.3. ApiTransport Class
+#### 5.2.3. ApiTransport Class
 
 `ApiTransport` is a transport class used to send log messages to an API. It includes a retry mechanism and transmits log messages as API requests.
 

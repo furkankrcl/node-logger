@@ -243,7 +243,7 @@ LoggerConfig.init({
   | `filePath`    | Logların yazılacağı dosyanın yolu.                                           | N/A        |
   | `maxSizeInMB` | Dosya boyut sınırı (megabayt olarak). Bu sınır aşıldığında dosya döndürülür. | `5`        |
 
-#### 2.3. ApiTranspor Class
+#### 5.2.3. ApiTranspor Class
 
 `ApiTransport`, log mesajlarını bir API'ye göndermek için kullanılan bir taşıma sınıfıdır. Yeniden deneme (retry) mekanizması içerir ve log mesajlarını API istekleri olarak iletir.
 
