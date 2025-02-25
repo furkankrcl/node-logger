@@ -1,6 +1,6 @@
 {
   "name": "@furkankrcl/logger",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A flexible logger with support for multiple transports, formatting, and categories.",
   "main": "dist/index.js",
   "publishConfig": {
