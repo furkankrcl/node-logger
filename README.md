@@ -6,7 +6,7 @@
 
 - [Türkçe (README.tr.md)](README.tr.md)
 
-## 🚀 Features
+## 2. 🚀 Features
 
 - **Flexible Transport Mechanisms**: Provides predefined transport mechanisms such as console, file, or API. You can also create your own transport classes by deriving from the [`ITransport`](#52-itransport-interface) interface.
 - **Category-Based Logging**: Manage logs in your application more systematically by defining different log categories.
